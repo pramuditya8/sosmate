@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model
+  Model, Op
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
@@ -16,6 +16,21 @@ module.exports = (sequelize, DataTypes) => {
         through: models.PostTag,
       });
     }
+
+    static searchPost(title){
+      return Post.findAll({
+        include: [sequelize.models.User, sequelize.models.Tag],
+        order: [["createdAt", "desc"]],
+        where: { 
+          title: {[Op.iLike]: `%${title ? title : ""}%`} 
+        }
+      })
+      .then(data => {
+        return data
+      })
+    }
+
+
   }
   Post.init({
     title: DataTypes.STRING,

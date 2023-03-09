@@ -17,6 +17,25 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.Profile);
       User.hasMany(models.Post);
     }
+
+    get formatDateCreated(){
+      return this.createdAt?.toISOString().split('T')[0]
+    }
+
+    static userStatistic(){
+      return User.findAll({
+        attributes: [
+          [sequelize.fn('COUNT', sequelize.col('role')), "countUser"],
+        ],
+        where: {role: "User"}
+      })
+      .then(data => {
+        return data
+      })
+    }
+
+    
+
   }
   User.init({
     username: {
@@ -29,18 +48,27 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           msg: `Username cannot be Empty`,
         },
+        notSpace(value) {
+          if (value.includes(" ")) {
+            throw new Error("Username tidak boleh menggunakan spasi");
+          }
+        },
       },
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      isEmail: true,
+      unique: true,
       validate: {
         notNull: {
           msg: `Email cannot be Null`,
         },
         notEmpty: {
           msg: `Email cannot be Empty`,
+        },
+        isEmail: {
+          args:false,
+          msg: "Email format is not Valid"
         },
       },
     },
