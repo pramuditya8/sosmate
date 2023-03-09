@@ -75,10 +75,11 @@ class Controller {
   }
 
   static saveAddPosting(req, res) {
+    const { filename } = req.file
     const { title, caption, imageUrl } = req.body;
     const id = req.session.UserId;
 
-    Post.create({ title, caption, imageUrl, UserId: id })
+    Post.create({ title, caption, imageUrl:filename, UserId: id })
       .then(() => {
         res.redirect("/home");
       })
@@ -105,14 +106,18 @@ class Controller {
   }
 
   static saveUpdate(req, res) {
+    console.log(req.file)
+    const { filename } = req.file
     const { title, caption, imageUrl } = req.body;
     const id = req.params.id
-    Post.update({ title, caption, imageUrl, UserId: id }, {
+    Post.update({ title, caption, imageUrl:filename, UserId: req.session.UserId }, {
       where: {
         id
       }
     })
-      .then(() => {
+      .then((data) => {
+        // console.log(data.dataValues.imageUrl, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+        // fs.unlinkSync("/images/"+filename);
         res.redirect("/home");
       })
       .catch(err => {

@@ -71,13 +71,15 @@
     <h1>Edit Postingan</h1>
     <%= console.log(post); %>
 
+
+    <form action="/edit/<%= post.id %>" method="post" enctype="multipart/form-data">
+
     <% if (errors) { %>
         <% errors.split(',').forEach(el=> { %>
             <p style="text-align: center; color: red;"><%= el %></p>
         <% }) %>
     <% } %>
 
-    <form action="/edit/<%= post.id %>" method="post">
         <div>
             <p>Title</p>
             <input type="text" name="title" value="<%= post.title %>">
@@ -87,9 +89,14 @@
             <input type="text" name="caption" value="<%= post.caption %>">
         </div>
         <div>
-            <p>ImageUrl</p>
-            <input type="text" name="imageUrl" value="<%= post.imageUrl %>">
+          <p>Image</p>
+          <img height="240" width="440" src="/images/<%= `${post.imageUrl}` %>" alt=""><br>
+          <input type="file" name="image">
         </div>
+        <!-- <div>
+            <p>ImageUrl</p>
+            <input type="text" name="imageUrl" value="<%# post.imageUrl %>">
+        </div> -->
         <button type="submit">Update</button>
     </form>
 </body>

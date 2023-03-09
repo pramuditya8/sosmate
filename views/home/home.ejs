@@ -20,16 +20,26 @@
           
           <h5 class="card-title"><%= e.User.username %></h5>
           <p class="card-title" style="color: rgb(102, 102, 102);"><b><%= e.title %></b></p>
-          <img src="<%= e.imageUrl %>" class="card-img-top" width="10" height="500" alt="<%= e.imageUrl %>">
+          <img src="/images/<%= `${e.imageUrl}` %>" class="card-img-top" width="10" height="500" alt="<%= e.imageUrl %>">
           <div class="card-body">
             <p class="card-text"><%= e.caption %></p>
             <p class="card-text" style="color: blue;"><% e.Tags.forEach(element => { %>
               <%= formatTags(element.name) %>
             <% }); %></p>
+
+ 
+            
+
             <a href="/likes/<%= e.id %>" class="btn btn-primary"><%= e.likes %> Like</a>
-            <a href="/edit/<%= e.id %>" class="btn btn-primary">Edit</a>
+            
+            <% if (UserId === e.UserId) { %>
+              <a href="/edit/<%= e.id %>" class="btn btn-success">Edit</a>
+             
+            <% } %>
+            
             <p style="text-align: right;"><%= e.showStatus() %></p>
      
+
           </div>
         </div>
         

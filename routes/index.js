@@ -3,7 +3,25 @@ const Controller = require('../controllers/controller')
 const UserController = require('../controllers/UserController')
 const router = express.Router()
 
-router.get("/", Controller.beranda); //Landing Page
+
+const multer = require("multer")
+const path = require("path")
+
+//////////////////////////////////////
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'images')
+  },
+  filename: (req, file, cb) => {
+    console.log(file)
+    cb(null, Date.now() + path.extname(file.originalname))
+  }
+})
+
+const upload = multer({storage: storage})
+///////////////////////////////////////
+
+// router.get("/", Controller.beranda); //Landing Page
 
 function checkLogin(req, res, next){
   // req.session.isLogin = true
@@ -69,10 +87,10 @@ router.get("/admin/deleteUser/:id", isAdmin, Controller.deleteUser)
 
 
 router.get("/upload", Controller.addPostingan);
-router.post("/upload", Controller.saveAddPosting);
+router.post("/upload", upload.single("image"), Controller.saveAddPosting);
 
 router.get("/edit/:id", Controller.updatePost);
-router.post("/edit/:id", Controller.saveUpdate);
+router.post("/edit/:id", upload.single("image"), Controller.saveUpdate);
 
 router.get("/likes/:id", Controller.totalLikes);
 
