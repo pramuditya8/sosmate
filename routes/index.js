@@ -2,17 +2,24 @@ const express = require('express')
 const UserController = require('../controllers/UserController')
 const router = express.Router()
 
+router.get("/", (req, res) => res.send("hello world"))
+
 router.get("/register", UserController.userRegisterForm)
 router.post("/register", UserController.userRegisterPost)
 
 router.get("/login", UserController.userLoginForm)
 router.post("/login", UserController.userLoginPost)
 
+router.get("/logout", (req, res) => res.send("hello world"))
+
 router.use(function (req, res, next) {
   console.log(req.session);
-  
+  if (req.session.isLogin === true) {
     next();
-  
+  } else {
+    const error = `Please Login First`;
+    res.redirect(`/login?error=${error}`);
+  }
 });
 
 router.get("/home", (req, res) => res.send("hello world"))

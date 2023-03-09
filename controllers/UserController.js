@@ -43,9 +43,9 @@ class UserController {
   }
 
   static userRegisterPost(req, res){
-    const { username, email, password } = req.body
+    const { username, email, password, role } = req.body
 
-    User.create({username, email, password, role: "user"})
+    User.create({username, email, password, role: role})
     .then(data => {
       res.redirect("/login")
     })
