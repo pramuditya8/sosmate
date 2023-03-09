@@ -20,6 +20,11 @@
           <div class="card bg-white">
             <div class="card-body p-5">
 
+              <% if (errors) { %>
+                  <% errors.split(',').forEach(el => { %>
+                      <p style="text-align: center; color: red;"><%= el %></p>
+                  <% }) %>
+              <% } %>
               <form action="/register" method="post" class="mb-3 mt-md-4">
                 <h2 class="fw-bold mb-2 text-uppercase ">Register</h2>
                 <div class="mb-3">
