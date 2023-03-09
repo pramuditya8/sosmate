@@ -1,5 +1,6 @@
 const { Post, User, Profile, Tag } = require("../models") 
-const { formatTags } = require("../helpers/helper")
+const { getTimeSince } = require("../helpers/helper")
+const fs = require("fs")
 
 class Controller {
   static beranda(req, res) {
@@ -11,7 +12,7 @@ class Controller {
     Post.searchPost(title)
       .then(data => {
         // res.send(data)
-        res.render("home/home", { data, formatTags });
+        res.render("home/home", { data, getTimeSince });
       })
       .catch(err => {
         res.send(err)
@@ -94,6 +95,8 @@ class Controller {
           res.send(err)
         }
       });
+
+
   }
 
   static updatePost(req, res) {
@@ -109,20 +112,28 @@ class Controller {
   }
 
   static saveUpdate(req, res) {
+    console.log(req.body)
+    const { title, caption, imageUrl } = req.body;
+    const id = req.params.id
+
     let image = ""
     if (req.file) {
       image = req.file.filename
+    }else{
+      image = imageUrl
     }
-    const { title, caption, imageUrl } = req.body;
-    const id = req.params.id
+
+
     Post.update({ title, caption, imageUrl:image, UserId: req.session.UserId }, {
       where: {
         id
       }
     })
       .then((data) => {
-        // console.log(data.dataValues.imageUrl, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-        // fs.unlinkSync("/images/"+filename);
+        if (req.file) {
+          fs.unlinkSync("./images/"+imageUrl);
+        }
+
         res.redirect("/home");
       })
       .catch(err => {
