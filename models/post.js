@@ -18,9 +18,42 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Post.init({
-    title: DataTypes.STRING,
-    caption: DataTypes.TEXT,
-    imageUrl: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: `Title cannot be Null`,
+        },
+        notEmpty: {
+          msg: `Title cannot be Empty`,
+        },
+      },
+    },
+    caption: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: `Caption cannot be Null`,
+        },
+        notEmpty: {
+          msg: `Caption cannot be Empty`,
+        },
+      },
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: `Image cannot be Null`,
+        },
+        notEmpty: {
+          msg: `Image cannot be Empty`,
+        },
+      },
+    },
     likes: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER
   }, {

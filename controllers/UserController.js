@@ -67,7 +67,15 @@ class UserController {
       })
   }
 
-
+  static getLogout(req, res) {
+    req.session.destroy((err) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.redirect("/login");
+      }
+    });
+  }
 }
 
 module.exports = UserController
