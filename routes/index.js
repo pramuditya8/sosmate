@@ -22,6 +22,8 @@ router.post("/register", checkLogin, UserController.userRegisterPost)
 router.get("/login", checkLogin, UserController.userLoginForm)
 router.post("/login", checkLogin, UserController.userLoginPost)
 
+router.get("/logout", (req, res) => res.send("hello world"))
+
 router.use(function (req, res, next) {
   req.session.isLogin = true
   console.log(req.session.isLogin);
