@@ -6,6 +6,7 @@ const router = express.Router()
 // router.get("/", Controller.beranda); //Landing Page
 function checkLogin(req, res, next){
   // req.session.isLogin = true
+
   console.log(req.session.isLogin)
   if (req.session.isLogin === true) {
     
@@ -26,6 +27,10 @@ router.get("/logout", UserController.getLogout)
 
 router.use(function (req, res, next) {
   // req.session.isLogin = true
+  // req.session.role = "Admin"
+  // res.locals.role = req.session.role
+
+
   console.log(req.session.isLogin);
   if (!req.session.isLogin) {
     const error = `Please Login First`;
@@ -37,6 +42,24 @@ router.use(function (req, res, next) {
 
 router.get("/home", Controller.home)
 
+function isAdmin(req, res, next){
+  // req.session.isLogin = true
+  // req.session.role = "Admin"
+  console.log(req.session.isLogin)
+  if (req.session.role === "Admin") {
+    
+    next();
+  }else{
+    res.redirect("/home")
+  }
+  
+}
+
+router.get("/admin", isAdmin, Controller.homeAdmin)
+router.get("/admin/deleteUser/:id", isAdmin, Controller.deleteUser)
+
+
+=======
 router.get("/upload", Controller.addPostingan);
 router.post("/upload", Controller.saveAddPosting);
 
