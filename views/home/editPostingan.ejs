@@ -71,7 +71,15 @@
     <h1>Edit Postingan</h1>
     <%= console.log(post); %>
 
+
     <form action="/edit/<%= post.id %>" method="post" enctype="multipart/form-data">
+
+    <% if (errors) { %>
+        <% errors.split(',').forEach(el=> { %>
+            <p style="text-align: center; color: red;"><%= el %></p>
+        <% }) %>
+    <% } %>
+
         <div>
             <p>Title</p>
             <input type="text" name="title" value="<%= post.title %>">

@@ -3,6 +3,7 @@ const Controller = require('../controllers/controller')
 const UserController = require('../controllers/UserController')
 const router = express.Router()
 
+
 const multer = require("multer")
 const path = require("path")
 
@@ -21,6 +22,7 @@ const upload = multer({storage: storage})
 ///////////////////////////////////////
 
 // router.get("/", Controller.beranda); //Landing Page
+
 function checkLogin(req, res, next){
   // req.session.isLogin = true
 
@@ -89,6 +91,8 @@ router.post("/upload", upload.single("image"), Controller.saveAddPosting);
 
 router.get("/edit/:id", Controller.updatePost);
 router.post("/edit/:id", upload.single("image"), Controller.saveUpdate);
+
+router.get("/likes/:id", Controller.totalLikes);
 
 
 module.exports = router

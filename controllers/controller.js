@@ -1,25 +1,13 @@
-const { Post, User, Profile } = require("../models") 
+const { Post, User, Profile, Tag } = require("../models") 
 const { formatTags } = require("../helpers/helper")
 
 class Controller {
+  static beranda(req, res) {
+    res.render('home/beranda')
+  }
+
   static home(req, res) {
     let { title, error } = req.query;
-
-
-    // Post.findAll({
-    //   include: User,
-    //   order: [["createdAt", "desc"]],
-    // })
-    //   .then(data => {
-    //     // console.log(data)
-    //     // res.send(data)
-    //     res.render("home/home", { data });
-    //   })
-    //   .catch(err => {
-    //     // console.log(err)
-    //     res.send(err);
-    //   });
-
     Post.searchPost(title)
       .then(data => {
         // res.send(data)
@@ -135,11 +123,24 @@ class Controller {
       .catch(err => {
         if (err.name === "SequelizeValidationError") {
           const message = err.errors.map(el => el.message);
-          res.send(message)
+          res.redirect(`/edit/${id}?errors=${message}`)
         } else {
           res.send(err)
         }
       })
+  }
+
+  static totalLikes(req, res) {
+    const id = req.params.id
+    Post.increment("likes", {
+      where: { id },
+    })
+      .then(() => {
+        res.redirect("/home");
+      })
+      .catch((err) => {
+        res.send(err);
+      });
   }
 }
 
