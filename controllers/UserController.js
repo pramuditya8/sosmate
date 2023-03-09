@@ -55,7 +55,6 @@ class UserController {
   }
 
   static userRegisterPost(req, res) {
-    console.log(req.body)
     const { username, email, password, role } = req.body
 
     User.create({ username, email, password, role })
@@ -66,7 +65,10 @@ class UserController {
         if (err.name == "SequelizeValidationError") {
           const message = err.errors.map(el => el.message)
           res.redirect(`/register?errors=${message}`)
-        } else {
+        } else if(err.name === "SequelizeUniqueConstraintError"){
+          const message = err.errors.map(el => el.message)
+          res.redirect(`/register?errors=${message}`)
+        }else{
           res.send(err)
         }
       })

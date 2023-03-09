@@ -15,6 +15,8 @@ module.exports = {
           model: "Tags",
           key: "id",
         },
+        onDelete: "cascade",
+        onUpdate: "cascade"
       },
       createdAt: {
         allowNull: false,
