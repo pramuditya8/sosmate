@@ -9,7 +9,7 @@ class UserController {
 
   static userLoginPost(req, res){
     const {email, password} = req.body
-    User.findOne({where: {email:email}})
+    User.findOne({where: {email}})
     .then(user => {
       const error = "Email or Password Invalid"
 
@@ -43,9 +43,9 @@ class UserController {
   }
 
   static userRegisterPost(req, res){
-    const { username, email, password } = req.body
+    const { username, email, password, role } = req.body
 
-    User.create({username, email, password, role: "user"})
+    User.create({username, email, password, role})
     .then(data => {
       res.redirect("/login")
     })

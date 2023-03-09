@@ -10,9 +10,12 @@ router.post("/login", UserController.userLoginPost)
 
 router.use(function (req, res, next) {
   console.log(req.session);
-  
+  if (req.session.isLogin === true) {
     next();
-  
+  } else {
+    const error = `Please Login First`;
+    res.redirect(`/login?error=${error}`);
+  }
 });
 
 router.get("/home", (req, res) => res.send("hello world"))
