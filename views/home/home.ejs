@@ -18,10 +18,10 @@
       <% data.forEach(e => { %>
         <div class="card w-auto mb-5">
           
-          <h5 class="card-title"><%= e.User.username %></h5>
-          <p class="card-title" style="color: rgb(102, 102, 102);"><b><%= e.title %></b></p>
-          <img src="/images/<%= `${e.imageUrl}` %>" class="card-img-top" width="10" height="500" alt="<%= e.imageUrl %>">
           <div class="card-body">
+            <h5 class="card-title"><%= e.User.username %></h5>
+            <p class="card-title" style="color: rgb(102, 102, 102);"><b>Title: <%= e.title %></b></p>
+            <img src="/images/<%= `${e.imageUrl}` %>" class="card-img-top" width="10" height="500" alt="<%= e.imageUrl %>">
             <p class="card-text"><%= e.caption %></p>
             <p class="card-text" style="color: blue;"><% e.Tags.forEach(element => { %>
               <%= formatTags(element.name) %>
