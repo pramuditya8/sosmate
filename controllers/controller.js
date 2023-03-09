@@ -3,8 +3,8 @@ const { getTimeSince } = require("../helpers/helper")
 const fs = require("fs")
 
 class Controller {
-  static beranda(req, res) {
-    res.render('home/beranda')
+  static landingPage(req, res) {
+    res.render('home/landingPage')
   }
 
   static home(req, res) {

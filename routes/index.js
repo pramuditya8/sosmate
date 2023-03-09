@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage})
 ///////////////////////////////////////
 
-router.get("/", Controller.beranda); //Landing Page
+router.get("/", Controller.landingPage); //Landing Page
 
 function checkLogin(req, res, next){
   // req.session.isLogin = true
@@ -74,7 +74,9 @@ router.get("/likes/:id", Controller.totalLikes);
 function isAdmin(req, res, next){
   // req.session.isLogin = true
   // req.session.role = "Admin"
-  console.log(req.session.isLogin)
+  res.locals.UserId = req.session.UserId;
+  res.locals.role = req.session.role;
+  res.locals.isLogin = req.session.isLogin;
   if (req.session.role === "Admin") {
     
     next();
