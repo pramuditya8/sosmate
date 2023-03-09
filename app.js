@@ -14,7 +14,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       secure: false,
-      sameSite: true, // For security dari csrf attack
+      // sameSite: true, // For security dari csrf attack
     },
   })
 );
