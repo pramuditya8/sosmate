@@ -93,10 +93,10 @@
           <img height="240" width="440" src="/images/<%= `${post.imageUrl}` %>" alt=""><br>
           <input type="file" name="image">
         </div>
-        <!-- <div>
+        <div>
             <p>ImageUrl</p>
-            <input type="text" name="imageUrl" value="<%# post.imageUrl %>">
-        </div> -->
+            <input type="hidden" name="imageUrl" value="<%= post.imageUrl %>">
+        </div>
         <button type="submit">Update</button>
     </form>
 </body>
