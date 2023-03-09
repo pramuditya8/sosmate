@@ -6,7 +6,7 @@ const router = express.Router()
 // router.get("/", Controller.beranda); //Landing Page
 function checkLogin(req, res, next){
   // req.session.isLogin = true
-  // req.session.role = "Admin"
+
   console.log(req.session.isLogin)
   if (req.session.isLogin === true) {
     
@@ -23,12 +23,13 @@ router.post("/register", checkLogin, UserController.userRegisterPost)
 router.get("/login", checkLogin, UserController.userLoginForm)
 router.post("/login", checkLogin, UserController.userLoginPost)
 
-router.get("/logout", (req, res) => res.send("hello world"))
+router.get("/logout", UserController.getLogout)
 
 router.use(function (req, res, next) {
   // req.session.isLogin = true
   // req.session.role = "Admin"
   // res.locals.role = req.session.role
+
 
   console.log(req.session.isLogin);
   if (!req.session.isLogin) {
@@ -58,6 +59,12 @@ router.get("/admin", isAdmin, Controller.homeAdmin)
 router.get("/admin/deleteUser/:id", isAdmin, Controller.deleteUser)
 
 
+=======
+router.get("/upload", Controller.addPostingan);
+router.post("/upload", Controller.saveAddPosting);
+
+router.get("/edit/:id", Controller.updatePost);
+router.post("/edit/:id", Controller.saveUpdate);
 
 
 module.exports = router
