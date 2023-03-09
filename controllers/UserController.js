@@ -24,7 +24,7 @@ class UserController {
             req.session.isLogin = true
 
             if (user.role == "Admin") {
-              res.redirect('/admin')
+              return res.redirect('/admin')
             } else {
               return res.redirect(`/home`)
             }
