@@ -75,11 +75,14 @@ class Controller {
   }
 
   static saveAddPosting(req, res) {
-    const { filename } = req.file
+    let image = ""
+    if (req.file) {
+      image = req.file.filename
+    }
     const { title, caption, imageUrl } = req.body;
     const id = req.session.UserId;
 
-    Post.create({ title, caption, imageUrl:filename, UserId: id })
+    Post.create({ title, caption, imageUrl:image, UserId: id, likes: 0 })
       .then(() => {
         res.redirect("/home");
       })
@@ -106,11 +109,13 @@ class Controller {
   }
 
   static saveUpdate(req, res) {
-    console.log(req.file)
-    const { filename } = req.file
+    let image = ""
+    if (req.file) {
+      image = req.file.filename
+    }
     const { title, caption, imageUrl } = req.body;
     const id = req.params.id
-    Post.update({ title, caption, imageUrl:filename, UserId: req.session.UserId }, {
+    Post.update({ title, caption, imageUrl:image, UserId: req.session.UserId }, {
       where: {
         id
       }

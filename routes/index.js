@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage})
 ///////////////////////////////////////
 
-// router.get("/", Controller.beranda); //Landing Page
+router.get("/", Controller.beranda); //Landing Page
 
 function checkLogin(req, res, next){
   // req.session.isLogin = true
@@ -45,16 +45,10 @@ router.post("/login", checkLogin, UserController.userLoginPost)
 router.get("/logout", UserController.getLogout)
 
 router.use(function (req, res, next) {
-  // req.session.isLogin = true
-  // req.session.role = "Admin"
-  res.locals.role = req.session.role
-
-
-  console.log(req.session.isLogin);
   console.log(req.session)
-  req.session.UserId = 6
-  req.session.role = "User"
-  req.session.isLogin = true
+  // req.session.UserId = 6
+  // req.session.role = "User"
+  // req.session.isLogin = true
   res.locals.UserId = req.session.UserId;
   res.locals.role = req.session.role;
   res.locals.isLogin = req.session.isLogin;
@@ -68,6 +62,14 @@ router.use(function (req, res, next) {
 });
 
 router.get("/home", Controller.home)
+
+router.get("/upload", Controller.addPostingan);
+router.post("/upload", upload.single("image"), Controller.saveAddPosting);
+
+router.get("/edit/:id", Controller.updatePost);
+router.post("/edit/:id", upload.single("image"), Controller.saveUpdate);
+
+router.get("/likes/:id", Controller.totalLikes);
 
 function isAdmin(req, res, next){
   // req.session.isLogin = true
@@ -86,13 +88,7 @@ router.get("/admin", isAdmin, Controller.homeAdmin)
 router.get("/admin/deleteUser/:id", isAdmin, Controller.deleteUser)
 
 
-router.get("/upload", Controller.addPostingan);
-router.post("/upload", upload.single("image"), Controller.saveAddPosting);
 
-router.get("/edit/:id", Controller.updatePost);
-router.post("/edit/:id", upload.single("image"), Controller.saveUpdate);
-
-router.get("/likes/:id", Controller.totalLikes);
 
 
 module.exports = router
