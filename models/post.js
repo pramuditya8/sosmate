@@ -59,11 +59,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     imageUrl: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
       validate: {
-        notNull: {
-          msg: `Image cannot be Null`,
-        },
+        // notNull: {
+        //   msg: `Image cannot be Null`,
+        // },
         notEmpty: {
           msg: `Image cannot be Empty`,
         },
