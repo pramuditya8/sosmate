@@ -1,0 +1,32 @@
+[
+  {
+    "username": "Muhammad Zidhan",
+    "email": "zidhan@mail.com",
+    "password": "semarangGarut",
+    "role": "Creator"
+  },
+  {
+    "username": "Pramuditya",
+    "email": "pramuditya@mail.com",
+    "password": "surabayaLampung",
+    "role": "User"
+  },
+  {
+    "username": "William Enos",
+    "email": "william@mail.com",
+    "password": "yogyakarta1000cerita",
+    "role": "Creator"
+  },
+  {
+    "username": "Wahid",
+    "email": "Wahid@mail.com",
+    "password": "wahidInDepok",
+    "role": "User"
+  },
+  {
+    "username": "Anggit",
+    "email": "Anggit@mail.com",
+    "password": "sukabumiSukaKamu",
+    "role": "User"
+  }
+]

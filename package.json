@@ -1,7 +1,6 @@
 {
   "name": "sosmate",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +12,17 @@
     "bcryptjs": "^2.4.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "pg": "^8.10.0",
     "sequelize": "^6.29.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pramuditya8/sosmate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pramuditya8/sosmate/issues"
+  },
+  "homepage": "https://github.com/pramuditya8/sosmate#readme",
+  "description": ""
 }
