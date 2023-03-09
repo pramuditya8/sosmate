@@ -45,7 +45,6 @@ router.post("/login", checkLogin, UserController.userLoginPost)
 router.get("/logout", UserController.getLogout)
 
 router.use(function (req, res, next) {
-  console.log(req.session)
   // req.session.UserId = 6
   // req.session.role = "User"
   // req.session.isLogin = true

@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     showStatus() {
-      if (this.likes <= 10) return "Beginner";
-      if (this.likes > 10) return "Entertaiment";
+      // if (this.likes <= 10) return "Beginner";
+      if (this.likes > 10) return "Trending";
     }
 
     static searchPost(title){
