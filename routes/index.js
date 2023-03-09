@@ -29,10 +29,18 @@ router.get("/logout", UserController.getLogout)
 router.use(function (req, res, next) {
   // req.session.isLogin = true
   // req.session.role = "Admin"
-  // res.locals.role = req.session.role
+  res.locals.role = req.session.role
 
 
   console.log(req.session.isLogin);
+  console.log(req.session)
+  req.session.UserId = 6
+  req.session.role = "User"
+  req.session.isLogin = true
+  res.locals.UserId = req.session.UserId;
+  res.locals.role = req.session.role;
+  res.locals.isLogin = req.session.isLogin;
+
   if (!req.session.isLogin) {
     const error = `Please Login First`;
     res.redirect(`/login?error=${error}`);
