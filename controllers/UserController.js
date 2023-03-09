@@ -29,6 +29,7 @@ class UserController {
 
 
       }else{
+
         return res.redirect(`/login?error=${error}`)
       }
     })
@@ -43,6 +44,7 @@ class UserController {
   }
 
   static userRegisterPost(req, res){
+    console.log(req.body)
     const { username, email, password, role } = req.body
 
     User.create({username, email, password, role})

@@ -1,6 +1,10 @@
 const express = require('express')
+const Controller = require('../controllers/controller')
 const UserController = require('../controllers/UserController')
 const router = express.Router()
+
+// router.get("/", Controller.beranda); //Landing Page
+
 
 router.get("/register", UserController.userRegisterForm)
 router.post("/register", UserController.userRegisterPost)
@@ -18,7 +22,7 @@ router.use(function (req, res, next) {
   }
 });
 
-router.get("/home", (req, res) => res.send("hello world"))
+// router.get("/home", Controller.home)
 
 
 module.exports = router
