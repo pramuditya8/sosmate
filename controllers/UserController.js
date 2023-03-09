@@ -9,14 +9,32 @@ class UserController {
 
   static userLoginPost(req, res){
     const {email, password} = req.body
-    User.findOne({where: {email}})
+    User.findOne({where: {email:email}})
     .then(user => {
-      if(user){
-        const isValidPassword = bcrypt.compareSync(password, user.password)
+      const error = "Email or Password Invalid"
 
-        const error = "Email or Password Invalid"
-        return isValidPassword ? res.redirect("/") : res.redirect(`/login?error=${error}`)
+      if(user){
+        const isValidPassword = bcrypt.compareSync(password, user.password); // true or false
+
+        if(isValidPassword){
+          req.session.UserId = user.id;
+          req.session.username = user.username;
+          req.session.role = user.role; // set session di controller
+          req.session.isLogin = true
+
+          return res.redirect(`/home`)
+        }else{
+          return res.redirect(`/login?error=${error}`)
+        }
+
+
+      }else{
+        return res.redirect(`/login?error=${error}`)
       }
+    })
+    .catch(err =>{
+      console.log("test")
+      res.send(err)
     })
   }
 
