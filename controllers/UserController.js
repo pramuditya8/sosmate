@@ -23,7 +23,12 @@ class UserController {
             req.session.role = user.role; // set session di controller
             req.session.isLogin = true
 
-            return res.redirect(`/home`)
+            if (user.role == "Admin") {
+              res.redirect('/admin')
+            } else {
+              return res.redirect(`/home`)
+            }
+
           } else {
             return res.redirect(`/login?error=${error}`)
           }

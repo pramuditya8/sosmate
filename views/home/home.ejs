@@ -26,9 +26,9 @@
             <p class="card-text" style="color: blue;"><% e.Tags.forEach(element => { %>
               <%= formatTags(element.name) %>
             <% }); %></p>
-            <a href="#" class="btn btn-primary"><%= e.likes %> Like</a>
-            <a href="#" class="btn btn-danger"><%# e.dislike %>0 Dislike</a>
+            <a href="/likes/<%= e.id %>" class="btn btn-primary"><%= e.likes %> Like</a>
             <a href="/edit/<%= e.id %>" class="btn btn-primary">Edit</a>
+            <p style="text-align: right;"><%= e.showStatus() %></p>
           </div>
         </div>
         

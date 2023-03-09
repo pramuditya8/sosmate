@@ -17,6 +17,11 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
+    showStatus() {
+      if (this.likes <= 10) return "Beginner";
+      if (this.likes > 10) return "Entertaiment";
+    }
+
     static searchPost(title){
       return Post.findAll({
         include: [sequelize.models.User, sequelize.models.Tag],
@@ -29,8 +34,6 @@ module.exports = (sequelize, DataTypes) => {
         return data
       })
     }
-
-
   }
   Post.init({
     title: {
@@ -42,6 +45,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         notEmpty: {
           msg: `Title cannot be Empty`,
+        },
+        isMinimalChar(value) {
+          if (value.length < 5) {
+            throw new Error("Title Minimum 5 huruf/kata");
+          }
         },
       },
     },
@@ -55,6 +63,11 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           msg: `Caption cannot be Empty`,
         },
+        isMinimalChar(value) {
+          if (value.length < 5) {
+            throw new Error("Caption Minimum 5 huruf/kata");
+          }
+        },
       },
     },
     imageUrl: {
@@ -67,6 +80,11 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           msg: `Image cannot be Empty`,
         },
+        isMinimalChar(value) {
+          if (value.length < 5) {
+            throw new Error("Image Url Minimum 5 huruf/kata");
+          }
+        },
       },
     },
     likes: DataTypes.INTEGER,
@@ -74,6 +92,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Post',
+  });
+  Post.beforeCreate((post, option) => {
+    post.likes = 0;
+    post.dislikes = 0;
   });
   return Post;
 };

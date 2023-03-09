@@ -3,7 +3,8 @@ const Controller = require('../controllers/controller')
 const UserController = require('../controllers/UserController')
 const router = express.Router()
 
-// router.get("/", Controller.beranda); //Landing Page
+router.get("/", Controller.beranda); //Landing Page
+
 function checkLogin(req, res, next){
   // req.session.isLogin = true
 
@@ -59,12 +60,13 @@ router.get("/admin", isAdmin, Controller.homeAdmin)
 router.get("/admin/deleteUser/:id", isAdmin, Controller.deleteUser)
 
 
-=======
 router.get("/upload", Controller.addPostingan);
 router.post("/upload", Controller.saveAddPosting);
 
 router.get("/edit/:id", Controller.updatePost);
 router.post("/edit/:id", Controller.saveUpdate);
+
+router.get("/likes/:id", Controller.totalLikes);
 
 
 module.exports = router
